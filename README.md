@@ -1,6 +1,6 @@
 # Transit App
 
-Geolocation to get train arrivals for nearby stations.
+This app uses geolocation to get train arrivals at nearby stations in the PA area.
 
 ---
 

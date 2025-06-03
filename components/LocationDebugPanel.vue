@@ -1,7 +1,7 @@
 <template>
   <section class="debug-panel">
     <h2>Debugging</h2>
-    <!-- Mode Toggle -->
+
     <div class="location-controls">
       <label class="label">Mode</label>
       <div class="">
@@ -15,10 +15,9 @@
         </label>
       </div>
 
-      <!-- Preset Location Selector -->
       <div v-if="mode === 'preset'">
         <label for="debug-location" class="label"> Preset Location </label>
-        <br>
+        <br />
         <select
           id="debug-location"
           class="select-input rounded-md"
@@ -27,11 +26,11 @@
         >
           <option disabled value="">Select Location</option>
           <option
-            v-for="(loc, index) in debugLocations"
+            v-for="(location, index) in debugLocations"
             :key="index"
             :value="index.toString()"
           >
-            {{ loc.name }}
+            {{ location.location_name }}
           </option>
         </select>
       </div>
@@ -58,17 +57,16 @@
       </div>
     </div>
     <!-- Error trigger for testing -->
-    <button class="btn" @click="emit('forceError')">💥 Trigger Error</button>
+    <button class="btn" @click="emit('forceError')">Trigger Error</button>
   </section>
 </template>
 
 <script setup lang="ts">
-import type { Coordinates, DebugLocation } from "@/types";
-import LocationOutput from "~/components/LocationOutput.vue";
+import type { Coordinates, DebugStation } from "@/types";
 
 const props = defineProps<{
   selectedLocationIndex: string;
-  debugLocations: DebugLocation[];
+  debugLocations: DebugStation[];
 }>();
 
 const emit = defineEmits<{
@@ -102,6 +100,9 @@ function emitManualCoords() {
 </script>
 
 <style>
+label {
+  color: var(--color-text-med);
+}
 .manual-coords input,
 select {
   background-color: rgba(170, 170, 255, 0.894);

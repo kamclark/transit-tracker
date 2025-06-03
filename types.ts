@@ -9,6 +9,12 @@ export type Station = {
   distance: string;
 };
 
+export type DebugStation = {
+  location_name: string;
+  location_id: number;
+};
+
+
 export type TrainInfo = {
   direction: string;
   path: string;

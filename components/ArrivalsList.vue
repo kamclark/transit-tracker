@@ -1,26 +1,20 @@
+<!-- components/ArrivalsList.vue -->
 <template>
-  <section class="arrivals-section card mt-md">
-    <h2 class="mb-sm">Arrivals at {{ stationName }}</h2>
-
-    <p v-if="loading">📡 Loading arrivals…</p>
-    <p v-else-if="error" class="text-red-500">🚨 {{ error }}</p>
+  <div>
+    <div v-if="loading">Loading arrivals...</div>
+    <div v-else-if="error">{{ error }}</div>
     <ul v-else>
-      <li
-        v-for="(train, i) in arrivals"
-        :key="i"
-        class="mb-xs"
-      >
-        <strong>ID:</strong> {{ train.train_id }} |
-        <strong>Status:</strong> {{ train.status }} |
-        <strong>Direction:</strong> {{ train.direction }}
+      <li v-for="(t, index) in arrivals" :key="index">
+        Train ({{ t.train_id }}) — {{ t.status }} — to {{ t.destination }}
       </li>
     </ul>
-  </section>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { watch } from "vue";
 import { useArrivals } from "@/composables/useArrivals";
+import { watch } from "vue";
+import type { Station } from "@/types";
 
 const props = defineProps<{
   stationName: string;

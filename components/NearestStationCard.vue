@@ -4,13 +4,8 @@
       <h3>{{ station.location_name }} ({{ station.distance }} miles away)</h3>
       <p>Last updated: {{ lastUpdated }}</p>
 
-      <div v-if="loading">Loading arrivals...</div>
-      <div v-else-if="error">{{ error }}</div>
-      <ul v-else>
-        <li v-for="(t, index) in arrivals" :key="index">
-          🛤️ {{ t.train_id }} — {{ t.status }} — to {{ t.destination }}
-        </li>
-      </ul>
+      <!-- Move arrivals logic here -->
+      <ArrivalsList :stationName="station.location_name" />
     </div>
 
     <div v-else>
@@ -27,6 +22,8 @@
 import { useArrivals } from "@/composables/useArrivals";
 import { watch } from "vue";
 import type { Station } from "~/types";
+import ArrivalsList from "@/components/ArrivalsList.vue";
+
 
 const props = defineProps<{
   station: Station | null;

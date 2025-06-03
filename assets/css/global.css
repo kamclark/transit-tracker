@@ -1,0 +1,43 @@
+:root {
+  /* Brand Colors */
+  --color-accent-red:   #e896a4d0;   /* e.g. live/selected items, “All” pill */
+  --color-accent-green: #25B19D;   /* e.g. LIVE tag */
+  --color-bg-primary:   #15202B;   /* page bg */
+  --color-bg-surface:   #1C2A3A;   /* panels, cards */
+  --color-text-high:    #FFFFFF;   /* headlines, nav items */
+  --color-text-med:     #A3A6AD;   /* secondary labels */
+  --color-text-low:     #6A6E78;   /* disabled/previews */
+
+  /* Spacing */
+  --space-xs: 0.25rem;  /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+
+  /* Typography / Rounding */
+  --font-base:   'Inter', sans-serif;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+}
+
+body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-med);
+  font-family: var(--font-base);
+  margin: 0;
+  padding: var(--space-lg);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+

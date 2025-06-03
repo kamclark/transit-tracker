@@ -7,4 +7,5 @@ export default defineNuxtConfig({
     // anything in here will be auto-injected on every page
     '~/assets/css/global.css',
   ],
+  pages: false
 })

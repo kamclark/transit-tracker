@@ -1,12 +1,16 @@
 <template>
   <section class="station-card card mb-lg">
-    <h2 class="text-text-high mb-sm">Nearest Station</h2>
-
     <div v-if="station">
-      <p class="station-name font-bold">{{ station.location_name }} <span v-if="station.distance">({{ station.distance }} miles away)</span></p>
-      
+      <h3>{{ station.location_name }} ({{ station.distance }} miles away)</h3>
+      <p>Last updated: {{ lastUpdated }}</p>
 
-      <!-- Add controls or station info here -->
+      <div v-if="loading">Loading arrivals...</div>
+      <div v-else-if="error">{{ error }}</div>
+      <ul v-else>
+        <li v-for="(t, index) in arrivals" :key="index">
+          🛤️ {{ t.train_id }} — {{ t.status }} — to {{ t.destination }}
+        </li>
+      </ul>
     </div>
 
     <div v-else>
@@ -14,14 +18,15 @@
     </div>
 
     <div class="refresh-section">
-      <button class="refresh-btn" @click="$emit('refresh')">🔁 Refresh</button>
-      <span v-if="lastUpdated">Last updated: {{ lastUpdated }}</span>
+      <button class="refresh-btn" @click="$emit('refresh')">🔁 Refresh</button><br />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import type { Station } from "@/types"
+import { useArrivals } from "@/composables/useArrivals";
+import { watch } from "vue";
+import type { Station } from "~/types";
 
 const props = defineProps<{
   station: Station | null;
@@ -30,8 +35,13 @@ const props = defineProps<{
   timeOptions: Array<{ label: string; value: number | "next" }>;
 }>();
 
-const emit = defineEmits<{
-  (e: "refresh"): void;
-  (e: "update:windowMinutes", val: number | "next"): void;
-}>();
+const { arrivals, loading, error, fetchArrivals } = useArrivals();
+
+watch(
+  () => props.station?.location_name,
+  (name) => {
+    if (name) fetchArrivals(name);
+  },
+  { immediate: true }
+);
 </script>

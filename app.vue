@@ -10,6 +10,15 @@
   />
 
   <LocationOutput :coords="coords" />
+
+  <NearestStationCard
+    :station="nearestStation ?? null"
+    :lastUpdated="lastUpdated"
+    :windowMinutes="windowMinutes"
+    :timeOptions="timeOptions"
+    @update:windowMinutes="windowMinutes = $event"
+  />
+
   <p v-if="stationError" class="text-red-500 mt-md">
     {{ stationError }}
   </p>
@@ -21,6 +30,7 @@ import LocationDebugPanel from "./components/LocationDebugPanel.vue";
 import LocationOutput from "./components/LocationOutput.vue";
 import DebugLocations from "./mocks/DebugLocations";
 import { useDebugLocation } from "@/composables/useDebugLocation";
+import { useNearestStation } from "./composables/useNearestStation";
 
 const {
   selectedIndex,
@@ -29,6 +39,14 @@ const {
   setByIndex,
   setManual,
 } = useDebugLocation();
+
+const {
+  nearestStation,
+  lastUpdated,
+  windowMinutes,
+  timeOptions,
+  refreshStationData
+} = useNearestStation(coords);
 
 const selectedLocation = ref("0"); // “Home” at index 0
 // const coords = ref<Coordinates | null>(null);

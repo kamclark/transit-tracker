@@ -15,7 +15,6 @@
     :station="nearestStation ?? null"
     :lastUpdated="lastUpdated"
     :windowMinutes="windowMinutes"
-    :timeOptions="timeOptions"
     @update:windowMinutes="windowMinutes = $event"
   />
 

@@ -24,12 +24,10 @@ import { watch } from "vue";
 import type { Station } from "~/types";
 import ArrivalsList from "@/components/ArrivalsList.vue";
 
-
 const props = defineProps<{
   station: Station | null;
   lastUpdated: string | null;
   windowMinutes: number | "next";
-  timeOptions: Array<{ label: string; value: number | "next" }>;
 }>();
 
 const { arrivals, loading, error, fetchArrivals } = useArrivals();

@@ -11,10 +11,6 @@
     <div v-else>
       <p class="text-text-low">⚠️ No nearby station found for these coordinates.</p>
     </div>
-
-    <div class="refresh-section">
-      <button class="refresh-btn" @click="$emit('refresh')">🔁 Refresh</button><br />
-    </div>
   </section>
 </template>
 

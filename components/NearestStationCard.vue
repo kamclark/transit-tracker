@@ -1,10 +1,12 @@
 <template>
   <section class="station-card card mb-lg">
     <div v-if="station">
-      <h3>{{ station.location_name }} ({{ station.distance }} miles away)</h3>
+      <h3 v-if="roundedDistance !== null">
+        {{ station.location_name }} ({{ roundedDistance }} miles away)
+      </h3>
+
       <p>Last updated: {{ lastUpdated }}</p>
 
-      <!-- Move arrivals logic here -->
       <ArrivalsList :stationName="station.location_name" />
     </div>
 
@@ -35,4 +37,9 @@ watch(
   },
   { immediate: true }
 );
+
+const roundedDistance = computed(() => {
+  const raw = Number(props.station?.distance);
+  return isNaN(raw) ? null : Math.floor(raw * 1000) / 1000;
+});
 </script>

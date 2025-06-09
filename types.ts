@@ -6,7 +6,7 @@ export type Coordinates = {
 export type Station = {
   location_id: string;
   location_name: string;
-  distance: string;
+  distance: number;
 };
 
 export type DebugStation = {

@@ -3,11 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "build": "nuxt build",
+    "generate": "npx nuxi generate --preset github_pages",
+    "deploy": "npm run generate && npx gh-pages -d dist"
   },
   "dependencies": {
     "@nuxt/eslint": "^1.4.1",

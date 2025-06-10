@@ -1,24 +1,21 @@
-export type GeoCoordinates = {
-  latitude: number;
-  longitude: number;
-};
+export type Coordinates = [number, number];
 
 export interface Station {
   name: string;
-  coordinates: GeoCoordinates;
+  coordinates: Coordinates;
   distance: number;
 }
 
 export class SeptaStation implements Station {
   name: string;
-  coordinates: GeoCoordinates;
+  coordinates: [number, number];
   distance: number;
   line?: string;
   rawData?: any;
 
   constructor(data: any) {
     this.name = data.location_name;
-    this.coordinates = { latitude: parseFloat(data.lat), longitude: parseFloat(data.lon) }
+    this.coordinates = [parseFloat(data.lat), parseFloat(data.lon)];
     this.distance = parseFloat(data.distance);
     this.line = data.line;
     this.rawData = data;

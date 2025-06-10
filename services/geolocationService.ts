@@ -1,6 +1,6 @@
-import type { Coordinates } from "~/types";
+import type { GeoCoordinates } from "~/types";
 
-export async function getUserCoordinates(): Promise<Coordinates> {
+export async function getUserCoordinates(): Promise<GeoCoordinates> {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
       return reject(new Error("Geolocation is not supported."));

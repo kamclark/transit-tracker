@@ -1,15 +1,15 @@
-# Transit App
+# Transit Tracker
 
-This app uses geolocation to get train arrivals at nearby stations in the PA area.
+A modular Vue+Nuxt application for tracking real-time public transit arrivals and finding the nearest SEPTA station based on your location. Built with a composable architecture, TypeScript typing, and a service layer for API interaction.
 
 ---
 
-## Technologies Used
+## Features
 
-- **Frontend:** Vue 3 (Composition API, `<script setup>`)
-- **Framework:** Nuxt 3
-- **Build Tool:** Vite
-- **Deployment:** GitHub Actions → GitHub Pages
+- **Find Nearest Station:** Uses browser geolocation to find the closest SEPTA station within a configurable radius.
+- **Live Arrivals:** Fetches and displays real-time arrival data for selected stations.
+- **Composable Architecture:** Core logic is modularized into composables and services for maintainability and testability.
+- **Nuxt-Powered:** Server routes for API proxying (avoiding CORS issues in production).
 
 ---
 
@@ -17,57 +17,61 @@ This app uses geolocation to get train arrivals at nearby stations in the PA are
 
 ### Prerequisites
 
-- Node.js v18+ (recommended)
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [npm](https://www.npmjs.com/)
 
 ### Setup
 
-1. **Clone the repository:**
-
-    ```bash
-    git clone https://github.com/kamclark/transit-tracker.git
-    cd transit-tracker
-    ```
-
-2. **Install dependencies:**
+1. **Install dependencies:**
 
     ```bash
     npm install
     ```
 
-3. **Run the development server:**
+2. **Run the development server:**
 
     ```bash
     npm run dev
     ```
 
-    Open [http://localhost:3000/](http://localhost:3000/) in your browser.
+    Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-4. **Build for production:**
+3. **Build for production:**
 
     ```bash
     npm run build
     ```
 
----
+4. **Generate static site (for GitHub Pages):**
 
-## Development & Debugging
-
-- Toggle the debug panel to simulate locations or force errors.
-- All API fetches use cache-busting and error handling for reliability.
-- Modular composables make it easy to swap between real and mock data.
+    ```bash
+    npm run generate
+    ```
 
 ---
 
-## Changelog
+## Deployment
 
-### [2025-06-03]
-- Flattened project structure for CI/CD compatibility.
-- Modularized all UI into components.
-- Added composables for nearest station and arrivals logic.
-- Implemented dynamic time window filtering.
-- Added debug/dev toolbar and location simulation.
-- Improved error and loading state handling.
-- Enhanced UI/UX for mobile and desktop.
+This project is set up for automated deployment to GitHub Pages using the [`gh-pages`](https://www.npmjs.com/package/gh-pages) package and Nuxt's GitHub Pages preset.
+
+- **Deploy manually:**
+
+    ```bash
+    npm run deploy
+    ```
+
+- **Automated deploy:**  
+  Pushes to `main` can be configured to trigger deployment via GitHub Actions (see `.github/workflows/` if present).
+
+---
+
+## Dependencies
+
+- [Nuxt 3](https://nuxt.com/)
+- [Vue 3](https://vuejs.org/)
+- [vue-router](https://router.vuejs.org/)
+- [gh-pages](https://www.npmjs.com/package/gh-pages) (for deployment)
+- [TypeScript](https://www.typescriptlang.org/)
 
 ---
 
@@ -77,9 +81,7 @@ This project is open source and available under the MIT License.
 
 ---
 
-## 🌐 Links
+## Acknowledgements
 
-- [GitHub Repository](https://github.com/kamclark/transit-tracker)
-- [Live Demo (GitHub Pages)](https://kamclark.github.io/transit-tracker/)
-
----
+- [SEPTA API](https://www3.septa.org/hackathon/) for transit data.
+- [Nuxt Docs](https://nuxt.com/docs) and [Vue Docs](https://vuejs.org/guide/introduction.html)

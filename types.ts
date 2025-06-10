@@ -8,19 +8,3 @@ export interface Station {
   coordinates: GeoCoordinates;
   distance: number;
 }
-
-export class SeptaStation implements Station {
-  name: string;
-  coordinates: GeoCoordinates;
-  distance: number;
-  line?: string;
-  rawData?: any;
-
-  constructor(data: any) {
-    this.name = data.location_name;
-    this.coordinates = { latitude: parseFloat(data.lat), longitude: parseFloat(data.lon) }
-    this.distance = parseFloat(data.distance);
-    this.line = data.line;
-    this.rawData = data;
-  }
-}

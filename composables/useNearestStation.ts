@@ -1,14 +1,14 @@
 // composables/useNearestStation.ts
 import { ref } from "vue";
-import type { GeoCoordinates } from "@/types";
 import { findNearestStation } from "@/services/nearestStationService";
-import type { SeptaStation } from "@/models/SeptaStation";
+import type { ITransitLocation, GeoCoordinates } from "~/types";
 
 export function useNearestStation() {
-  const station = ref<SeptaStation | null>(null);
+  const station = ref<ITransitLocation | null>(null);
   const loading = ref(false);
   const error = ref<string | null>(null);
 
+  
   async function fetchNearest(coords: GeoCoordinates) {
     loading.value = true;
     error.value = null;

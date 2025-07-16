@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     baseURL: process.env.NODE_ENV === 'production' ? '/transit-tracker/' : '/',
   },
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint'],
+  modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss'],
   css: [
     // anything in here will be auto-injected on every page
     '~/assets/css/global.css',

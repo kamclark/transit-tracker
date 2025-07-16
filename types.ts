@@ -3,8 +3,10 @@ export type GeoCoordinates = {
   longitude: number;
 };
 
-export interface Station {
+export interface ITransitLocation {
+  id: string;
   name: string;
   coordinates: GeoCoordinates;
-  distance: number;
+  transitAuthorityKey: string;
 }
+

@@ -21,15 +21,15 @@ export async function fetchArrivals(
   const raw = (await res.json()) as RawArrivalsResponse;
 
   const dateKey = Object.keys(raw)[0];
-  const groups = raw[dateKey] as RawDirectionGroup[];
+  const groups  = raw[dateKey] as RawDirectionGroup[];
 
   const north = groups
-    .flatMap((g) => g.Northbound ?? [])
-    .map((r) => new SeptaPrediction(r));
+    .flatMap(g => g.Northbound ?? [])
+    .map(r => new SeptaPrediction(r));
 
   const south = groups
-    .flatMap((g) => g.Southbound ?? [])
-    .map((r) => new SeptaPrediction(r));
+    .flatMap(g => g.Southbound ?? [])
+    .map(r => new SeptaPrediction(r));
 
   return { northbound: north, southbound: south };
 }

@@ -8,7 +8,6 @@ export function useNearestStation() {
   const loading = ref(false);
   const error = ref<string | null>(null);
 
-  
   async function fetchNearest(coords: GeoCoordinates) {
     loading.value = true;
     error.value = null;
@@ -20,8 +19,12 @@ export function useNearestStation() {
       } else {
         station.value = result;
       }
-    } catch (e: any) {
-      error.value = e.message || "Unknown error";
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        error.value = e.message;
+      } else {
+        error.value = "Unknown error";
+      }
     } finally {
       loading.value = false;
     }

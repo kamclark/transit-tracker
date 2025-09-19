@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { defineProps } from "vue";
 import type { ITransitLocation } from "~/types";
+// We'll bring back the `useArrivals` composable here
+// because the StationDetail component is logically the parent
+// that needs to know about a specific station's arrivals.
 import { useArrivals } from "@/composables/useArrivals";
+import { computed } from "vue"; // Don't forget to import computed!
 
 const props = defineProps<{
   station: ITransitLocation;

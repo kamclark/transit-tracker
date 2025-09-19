@@ -14,12 +14,8 @@ export function useArrivals(stationId: string | Ref<string>) {
     error.value = null;
     try {
       arrivals.value = await fetchArrivals(id);
-    } catch (e: unknown) {
-      if (e instanceof Error) {
-        error.value = `Error: ${e.message}`;
-      } else {
-        error.value = "An unknown error occurred.";
-      }
+    } catch (e: any) {
+      error.value = e.message || "Failed to load arrivals";
     } finally {
       loading.value = false;
     }

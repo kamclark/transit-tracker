@@ -6,13 +6,13 @@ import { useNearestStation } from "@/composables/useNearestStation";
 import StationDetail from "./components/StationDetail.vue";
 
 const { coords, loading: geoLoading, error: geoError, fetchLocation } = useLocation();
-
 const {
   station,
   loading: stationLoading,
   error: stationError,
   fetchNearest,
 } = useNearestStation();
+
 
 onMounted(async () => {
   await fetchLocation();
@@ -37,9 +37,12 @@ watch(coords, (newCoords) => {
     <div v-else-if="stationLoading">Finding nearest station…</div>
     <div v-else-if="stationError" class="text-red-500">{{ stationError }}</div>
 
-    <StationDetail v-else-if="station" :station="station" />
+    <StationDetail
+      v-else-if="station"
+      :station="station" />
     <div v-else>No station data available.</div>
   </main>
 </template>
 
-<style></style>
+<style>
+</style>

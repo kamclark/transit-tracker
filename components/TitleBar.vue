@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1 class="heading-primary">Transit Tracker</h1>
+    <h1 class="heading-primary">{{ props.appTitle }}</h1>
   </header>
 </template>
 
@@ -11,7 +11,6 @@ const props = defineProps<{
 </script>
 
 <style>
-
 h1.heading-primary {
   font-size: 2rem;
   font-weight: bold;

@@ -29,7 +29,7 @@ watch(coords, (newCoords) => {
 
 <template>
   <main class="p-4">
-    <TitleBar app-title="TransitTracker" />
+    <TitleBar app-title="Transit Tracker" />
 
     <div v-if="geoLoading">Locating you…</div>
     <div v-else-if="geoError" class="text-red-500">{{ geoError }}</div>

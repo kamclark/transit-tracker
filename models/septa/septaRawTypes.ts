@@ -1,3 +1,6 @@
+// models/septa/septaRawTypes.ts
+// Raw SEPTA API response types (moved from RawArrivals.ts)
+
 export interface RawPrediction {
     direction: "N" | "S";
     path: string;

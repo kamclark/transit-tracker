@@ -1,10 +1,11 @@
 // composables/useNearestStation.ts
 import { ref } from "vue";
 import { findNearestStation } from "@/services/nearestStationService";
-import type { ITransitLocation, GeoCoordinates } from "~/types";
+import type { GeoCoordinates } from "~/types";
+import type { IStation } from "@/models/station";
 
 export function useNearestStation() {
-  const station = ref<ITransitLocation | null>(null);
+  const station = ref<IStation | null>(null);
   const loading = ref(false);
   const error = ref<string | null>(null);
 
@@ -20,8 +21,12 @@ export function useNearestStation() {
       } else {
         station.value = result;
       }
-    } catch (e: any) {
-      error.value = e.message || "Unknown error";
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        error.value = e.message;
+      } else {
+        error.value = "An unexpected error occurred";
+      }
     } finally {
       loading.value = false;
     }

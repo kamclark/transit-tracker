@@ -13,9 +13,13 @@ export function useLocation() {
             loading.value = true;
             const userCoords = await getUserCoordinates();
             coordinates.value = userCoords;
-        } catch (e: any) {
+        } catch (e: unknown) {
             console.error("Geolocation error:", e);
-            error.value = e.message || "Failed to get location.";
+            if (e instanceof Error) {
+                error.value = e.message;
+            } else {
+                error.value = "Failed to get location.";
+            }
         } finally {
             loading.value = false;
         }

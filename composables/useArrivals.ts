@@ -1,4 +1,5 @@
 // composables/useArrivals.ts
+// Note: Currently SEPTA-specific. Future: make agency-aware with adapter pattern
 import { ref, watch } from "vue";
 import type { ArrivalsByDirection } from "@/services/arrivalsService";
 import { fetchArrivals } from "@/services/arrivalsService";
@@ -18,8 +19,12 @@ export function useArrivals(
     error.value   = null;
     try {
       arrivals.value = await fetchArrivals(id);
-    } catch (e: any) {
-      error.value = e.message || "Failed to load arrivals";
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        error.value = e.message;
+      } else {
+        error.value = "Failed to load arrivals";
+      }
     } finally {
       loading.value = false;
     }

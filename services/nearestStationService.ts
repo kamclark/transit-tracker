@@ -1,4 +1,6 @@
-import type { GeoCoordinates, ITransitLocation } from "@/types";
+import type { GeoCoordinates } from "@/types";
+import type { IStation } from "@/models/station";
+import { SeptaStation } from "@/models/septa/septaStation";
 
 interface IRawSeptaStationApiData {
   location_id: string;
@@ -12,7 +14,7 @@ interface IRawSeptaStationApiData {
 
 export async function findNearestStation(
   coords: GeoCoordinates
-): Promise<ITransitLocation | null> {
+): Promise<IStation | null> {
   const searchRadius = 0.75; // look at stations within .75 miles
   const proxyUrl = `https://corsproxy.io/?https://www3.septa.org/api/locations/get_locations.php?lat=${coords.latitude}&lon=${coords.longitude}&type=rail_stations&radius=${searchRadius.toString()}`;
 
@@ -32,15 +34,7 @@ export async function findNearestStation(
       return null; // No station found in the array
     }
 
-    const nearestStation: ITransitLocation = {
-      id: rawNearestStation.location_id,
-      name: rawNearestStation.location_name,
-      coordinates: {
-        latitude: parseFloat(rawNearestStation.location_lat),
-        longitude: parseFloat(rawNearestStation.location_lon),
-      },
-      transitAuthorityKey: "septa",
-    };
+    const nearestStation = new SeptaStation(rawNearestStation);
 
     return nearestStation;
 

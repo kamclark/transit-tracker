@@ -3,13 +3,12 @@
 import type {
   RawArrivalsResponse,
   RawDirectionGroup,
-  RawPrediction,
-} from "@/models/rawArrivals";
-import { SeptaPrediction } from "@/models/SeptaPrediction";
+} from "@/models/septa/septaRawTypes";
+import { SeptaArrival } from "@/models/septa/septaArrivals";
 
 export interface ArrivalsByDirection {
-  northbound: SeptaPrediction[];
-  southbound: SeptaPrediction[];
+  northbound: SeptaArrival[];
+  southbound: SeptaArrival[];
 }
 
 export async function fetchArrivals(
@@ -25,11 +24,11 @@ export async function fetchArrivals(
 
   const north = groups
     .flatMap(g => g.Northbound ?? [])
-    .map(r => new SeptaPrediction(r));
+    .map(r => new SeptaArrival(r, stationId));
 
   const south = groups
     .flatMap(g => g.Southbound ?? [])
-    .map(r => new SeptaPrediction(r));
+    .map(r => new SeptaArrival(r, stationId));
 
   return { northbound: north, southbound: south };
 }

@@ -16,30 +16,19 @@ export async function findNearestStation(
   coords: GeoCoordinates
 ): Promise<IStation | null> {
   const searchRadius = 0.75; // look at stations within .75 miles
-  const proxyUrl = `https://corsproxy.io/?https://www3.septa.org/api/locations/get_locations.php?lat=${coords.latitude}&lon=${coords.longitude}&type=rail_stations&radius=${searchRadius.toString()}`;
+  const url = `/api/septa/stations?lat=${coords.latitude}&lon=${coords.longitude}&type=rail_stations&radius=${searchRadius}`;
 
-  try {
-    const res = await fetch(proxyUrl);
-    if (!res.ok) { // Always check for network errors/bad responses
-        console.error(`API request failed with status: ${res.status}`);
-        return null;
-    }
-
-    // The API returns an array of stations, so we expect an array here.
-    const rawStations: IRawSeptaStationApiData[] = await res.json();
-    const rawNearestStation = rawStations[0];
-
-    if (!rawNearestStation) {
-      console.log("No nearest station found in API response.");
-      return null; // No station found in the array
-    }
-
-    const nearestStation = new SeptaStation(rawNearestStation);
-
-    return nearestStation;
-
-  } catch (e) {
-    console.error("Error fetching or processing station data:", e);
-    return null;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Station lookup failed: ${res.status}`);
   }
+
+  const rawStations: IRawSeptaStationApiData[] = await res.json();
+  const rawNearestStation = rawStations[0];
+
+  if (!rawNearestStation) {
+    return null; // No station found within radius - valid empty result
+  }
+
+  return new SeptaStation(rawNearestStation);
 }

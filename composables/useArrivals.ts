@@ -2,10 +2,10 @@
 // INSTANCE-BASED composable - each call creates independent state
 // This allows tracking arrivals for different stations simultaneously
 
-import { ref, watch, unref, isRef } from "vue";
+import { ref, computed, watch, unref, isRef } from "vue";
 import type { Ref } from "vue";
-import type { ArrivalsByDirection } from "@/services/arrivalsService";
-import { fetchArrivals } from "@/services/arrivalsService";
+import type { ArrivalsByDirection, GroupedArrivals } from "@/services/arrivalsService";
+import { fetchArrivals, flattenArrivals, groupArrivalsByRoute } from "@/services/arrivalsService";
 
 export function useArrivals(stationId: string | Ref<string>) {
   const arrivals = ref<ArrivalsByDirection | null>(null);
@@ -30,10 +30,17 @@ export function useArrivals(stationId: string | Ref<string>) {
     }
   }
 
+  // Compute grouped arrivals from the raw arrivals
+  const groupedArrivals = computed<GroupedArrivals>(() => {
+    if (!arrivals.value) return [];
+    const flat = flattenArrivals(arrivals.value);
+    return groupArrivalsByRoute(flat);
+  });
+
   // auto-fetch when stationId changes (if it's a ref)
   if (isRef(stationId)) {
     watch(stationId, () => refresh(), { immediate: true });
   }
 
-  return { arrivals, loading, error, refresh };
+  return { arrivals, groupedArrivals, loading, error, refresh };
 }

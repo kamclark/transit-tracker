@@ -1,15 +1,18 @@
 // composables/useNearestStation.ts
+// SINGLETON composable - state is shared across all callers
+// This is intentional: there's only one "nearest station" to the user's location
+
 import { ref } from "vue";
 import { findNearestStation } from "@/services/nearestStationService";
-import type { GeoCoordinates } from "~/types";
+import type { GeoCoordinates } from "@/types";
 import type { IStation } from "@/models/station";
 
-export function useNearestStation() {
-  const station = ref<IStation | null>(null);
-  const loading = ref(false);
-  const error = ref<string | null>(null);
+// Module-scoped state (singleton pattern)
+const station = ref<IStation | null>(null);
+const loading = ref(false);
+const error = ref<string | null>(null);
 
-  
+export function useNearestStation() {
   async function fetchNearest(coords: GeoCoordinates) {
     loading.value = true;
     error.value = null;

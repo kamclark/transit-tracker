@@ -4,20 +4,10 @@
 import type { GeoCoordinates } from '@/types';
 import type { IStation } from '@/models/station';
 import type { ITransitAuthority, ArrivalsByDirection } from '@/models/transitAuthority';
-import type { RawArrivalsResponse, RawDirectionGroup } from './septaRawTypes';
+import type { RawArrivalsResponse, RawDirectionGroup, IRawSeptaStationApiData } from './septaRawTypes';
 import { Direction } from '@/models/arrivalTypes';
 import { SeptaArrival } from './septaArrivals';
 import { SeptaStation } from './septaStation';
-
-interface IRawSeptaStationApiData {
-  location_id: string;
-  location_name: string;
-  location_lat: string;
-  location_lon: string;
-  distance: string;
-  location_type: string;
-  location_data: Record<string, string>;
-}
 
 export const septaAuthority: ITransitAuthority = {
   key: 'septa',

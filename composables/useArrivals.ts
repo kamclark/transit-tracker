@@ -4,8 +4,8 @@
 
 import { ref, watch, unref, isRef } from "vue";
 import type { Ref } from "vue";
-import type { ArrivalsByDirection } from "@/services/arrivalsService";
-import { fetchArrivals } from "@/services/arrivalsService";
+import type { ArrivalsByDirection } from "@/models/transitAuthority";
+import { septaAuthority } from "@/models/septa/septaAuthority";
 
 export function useArrivals(stationId: string | Ref<string>) {
   const arrivals = ref<ArrivalsByDirection | null>(null);
@@ -18,7 +18,7 @@ export function useArrivals(stationId: string | Ref<string>) {
     loading.value = true;
     error.value = null;
     try {
-      arrivals.value = await fetchArrivals(id);
+      arrivals.value = await septaAuthority.fetchArrivals(id);
     } catch (e: unknown) {
       if (e instanceof Error) {
         error.value = e.message;

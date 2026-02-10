@@ -17,10 +17,12 @@ export default defineEventHandler(async (event) => {
   try {
     const response = await $fetch(septaUrl);
     return response;
-  } catch (error) {
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    console.error(`[SEPTA Arrivals] Failed for station="${stationId}":`, message);
     throw createError({
       statusCode: 502,
-      statusMessage: 'Failed to fetch from SEPTA API',
+      statusMessage: `Failed to fetch arrivals from SEPTA API: ${message}`,
     });
   }
 });

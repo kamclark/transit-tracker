@@ -3,7 +3,7 @@
 // This is intentional: there's only one "nearest station" to the user's location
 
 import { ref } from "vue";
-import { findNearestStation } from "@/services/nearestStationService";
+import { septaAuthority } from "@/models/septa/septaAuthority";
 import type { GeoCoordinates } from "@/types";
 import type { IStation } from "@/models/station";
 
@@ -18,7 +18,7 @@ export function useNearestStation() {
     error.value = null;
 
     try {
-      const result = await findNearestStation(coords);
+      const result = await septaAuthority.findNearestStation(coords);
       if (!result) {
         error.value = "No station found nearby.";
       } else {

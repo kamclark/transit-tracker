@@ -27,3 +27,13 @@ export interface RawDirectionGroup {
 export interface RawArrivalsResponse {
     [dateKey: string]: RawDirectionGroup[];
 }
+
+export interface IRawSeptaStationApiData {
+  location_id: string;
+  location_name: string;
+  location_lat: string;
+  location_lon: string;
+  distance: string;
+  location_type: string;
+  location_data: Record<string, string>;
+}

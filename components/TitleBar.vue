@@ -1,11 +1,14 @@
+<script setup lang="ts">
+defineProps<{
+  appTitle: string;
+}>();
+</script>
+
 <template>
   <header>
-    <h1 class="heading-primary">Transit Tracker</h1>
+    <h1 class="heading-primary">{{ appTitle }}</h1>
   </header>
 </template>
-
-<script setup lang="ts">
-</script>
 
 <style>
 

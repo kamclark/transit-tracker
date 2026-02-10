@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, toRef } from "vue";
 import type { IStation } from "@/models/station";
 import type { Direction } from "@/models/arrivalTypes";
 import { useArrivals } from "@/composables/useArrivals";
@@ -9,13 +9,12 @@ const props = defineProps<{
   station: IStation;
 }>();
 
-const stationIdRef = computed(() => props.station.id);
 const {
   arrivals,
   loading: arrivalsLoading,
   error: arrivalsError,
   refresh: refreshArrivals,
-} = useArrivals(stationIdRef);
+} = useArrivals(toRef(() => props.station.id));
 
 // Convert arrivals object to array of [direction, arrivals] entries for iteration
 const arrivalEntries = computed(() => {

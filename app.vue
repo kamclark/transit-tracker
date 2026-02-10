@@ -16,12 +16,9 @@ const {
 
 onMounted(async () => {
   await fetchLocation();
-  if (coords.value) {
-    await fetchNearest(coords.value);
-  }
 });
 
-// refetch if coords ever change
+// fetch nearest station whenever coords change
 watch(coords, (newCoords) => {
   if (newCoords) fetchNearest(newCoords);
 });

@@ -15,15 +15,31 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  if (isNaN(Number(lat)) || isNaN(Number(lon))) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Parameters lat and lon must be numeric',
+    });
+  }
+
+  if (radius && isNaN(Number(radius))) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Parameter radius must be numeric',
+    });
+  }
+
   const septaUrl = `https://www3.septa.org/api/locations/get_locations.php?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&type=${encodeURIComponent(type)}&radius=${encodeURIComponent(radius)}`;
 
   try {
     const response = await $fetch(septaUrl);
     return response;
-  } catch (error) {
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    console.error(`[SEPTA Stations] Failed for lat=${lat}, lon=${lon}:`, message);
     throw createError({
       statusCode: 502,
-      statusMessage: 'Failed to fetch from SEPTA API',
+      statusMessage: `Failed to fetch stations from SEPTA API: ${message}`,
     });
   }
 });

@@ -3,13 +3,15 @@
 
 import type { IStation } from '@/models/station';
 import { StopType } from '@/models/locationTypes';
+import type { StationAmenity } from '@/models/locationTypes';
 import type { GeoCoordinates } from '@/types';
+import type { IRawSeptaStationApiData } from './septaRawTypes';
 
 export interface ISeptaStation extends IStation {
   // SEPTA-specific fields
   locationId: string;
   locationType: string;
-  raw?: any;
+  raw?: IRawSeptaStationApiData;
 }
 
 export class SeptaStation implements ISeptaStation {
@@ -25,15 +27,15 @@ export class SeptaStation implements ISeptaStation {
   // IStation fields
   address?: string;
   platforms?: string[];
-  amenities?: any[];
+  amenities?: StationAmenity[];
   connections?: string[];
 
   // ISeptaStation fields
   locationId: string;
   locationType: string;
-  raw?: any;
+  raw?: IRawSeptaStationApiData;
 
-  constructor(data: any) {
+  constructor(data: IRawSeptaStationApiData) {
     // ITransitStop fields
     this.id = data.location_id;
     this.transitAuthorityKey = 'septa';

@@ -4,6 +4,9 @@ import TitleBar from "./components/TitleBar.vue";
 import { useLocation } from "@/composables/useLocation";
 import { useNearestStation } from "@/composables/useNearestStation";
 import StationDetail from "./components/StationDetail.vue";
+import DebugPanel from "./components/DebugPanel.vue";
+
+const isDev = import.meta.dev;
 
 const { coords, loading: geoLoading, error: geoError, fetchLocation } = useLocation();
 const {
@@ -38,6 +41,8 @@ watch(coords, (newCoords) => {
       v-else-if="station"
       :station="station" />
     <div v-else>No station data available.</div>
+
+    <DebugPanel v-if="isDev" />
   </main>
 </template>
 
